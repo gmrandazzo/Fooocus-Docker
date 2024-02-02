@@ -1,0 +1,16 @@
+FROM python:3.10-slim
+WORKDIR /app
+RUN apt update && apt install -y \
+    wget git libgl1-mesa-glx libglib2.0-0 \
+    && git clone https://github.com/lllyasviel/Fooocus.git . \
+    && pip install -r requirements_versions.txt \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+RUN wget "https://huggingface.co/lllyasviel/misc/resolve/main/xlvaeapp.pth"  -O /app/models/vae_approx/xlvaeapp.pth
+RUN wget "https://huggingface.co/lllyasviel/misc/resolve/main/vaeapp_sd15.pt" -O /app/models/vae_approx/vaeapp_sd15.pth
+RUN wget "https://huggingface.co/lllyasviel/misc/resolve/main/xl-to-v1_interposer-v3.1.safetensors" -O /app/models/vae_approx/xl-to-v1_interposer-v3.1.safetensors
+RUN wget "https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_expansion.bin" -O /app/models/prompt_expansion/fooocus_expansion/pytorch_model.bin
+RUN wget "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/juggernautXL_v8Rundiffusion.safetensors" -O /app/models/checkpoints/juggernautXL_v8Rundiffusion.safetensors
+RUN wget "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors" -O /app/models/loras/sd_xl_offset_example-lora_1.0.safetensors
+EXPOSE 7865
+CMD ["python", "entry_with_update.py", "--listen", "0.0.0.0", "--port", "7865"]

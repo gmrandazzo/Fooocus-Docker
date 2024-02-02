@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  fooocus:
+    build:
+      context: .
+      dockerfile: Dockerfile-cuda
+    ports:
+     - "7865:7865"
+    privileged: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
