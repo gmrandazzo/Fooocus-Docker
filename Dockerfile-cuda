@@ -12,5 +12,10 @@ RUN wget "https://huggingface.co/lllyasviel/misc/resolve/main/xl-to-v1_interpose
 RUN wget "https://huggingface.co/lllyasviel/misc/resolve/main/fooocus_expansion.bin" -O /app/models/prompt_expansion/fooocus_expansion/pytorch_model.bin
 RUN wget "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/juggernautXL_v8Rundiffusion.safetensors" -O /app/models/checkpoints/juggernautXL_v8Rundiffusion.safetensors
 RUN wget "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/main/sd_xl_offset_example-lora_1.0.safetensors" -O /app/models/loras/sd_xl_offset_example-lora_1.0.safetensors
+RUN wget "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/realisticStockPhoto_v10.safetensors" -O /app/models/checkpoint/realisticStockPhoto_v10.safetensors
+RUN wget "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/bluePencilXL_v050.safetensors" -O /app/models/checkpoint/bluePencilXL_v050.safetensors
+RUN wget "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/animaPencilXL_v100.safetensors" -O /app/models/checkpoint/animaPencilXL_v100.safetensors
+RUN wget "https://huggingface.co/lllyasviel/fav_models/resolve/main/fav/SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors?download=true" -O /app/models/loras/SDXL_FILM_PHOTOGRAPHY_STYLE_BetaV0.4.safetensors
+
 EXPOSE 7865
 CMD ["python", "entry_with_update.py", "--listen", "0.0.0.0", "--port", "7865"]
